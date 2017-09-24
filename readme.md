@@ -10,7 +10,14 @@ TODO
 -- CI/travis unit test builds
 -- CD/auto-deploy all checkins to running server
 
+UI
+- 2 modes
+  - pure GPS - start journey, live fare updates, stop journey
+  - manual - start, update with random move, show current fare, stop journey
+
+
 PREP
 
-- learn/read/watch Scala/Play
+- learn/read/watch Scala/Play material
 - build small app - https://github.com/kimptoc/pinboard-play
+

@@ -12,7 +12,7 @@ import scala.collection.mutable.ListBuffer
   * @param startTime
   * @param startLocation
   */
-class TaxiFare(startTime: LocalDateTime, startLocation: Location) {
+class TaxiFare(startTime: LocalDateTime = LocalDateTime.now(), startLocation: Location = new Location(0,0)) {
 
   val locationUpdates = new ListBuffer[LocationUpdate]
   locationUpdates += new LocationUpdate(startLocation, startTime)

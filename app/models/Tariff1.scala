@@ -23,6 +23,11 @@ class Tariff1(val firstDistance:Double = 234.8,
         val distanceAtAdditionalRate = math.ceil((x - firstDistance) / additionalDistance)
         moneyMinCharge + moneyAdditionalCharge * distanceAtAdditionalRate
       }
+      case _ => {
+        val distanceAtAdditionalRate = math.ceil((9656.1 - firstDistance) / additionalDistance)
+        val distanceAtFarRate = math.ceil((distance - 9656.1) / farDistance)
+        moneyMinCharge + moneyAdditionalCharge * distanceAtAdditionalRate + moneyFarCharge * distanceAtFarRate
+      }
     }
   }
 

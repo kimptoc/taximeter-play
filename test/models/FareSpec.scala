@@ -33,6 +33,10 @@ class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
     taxiFare should be (new Money(2.60)) // min fare
   }
 
+  it should "have zero arg constructor" in {
+    val journey = new TaxiFare()
+  }
+
   it should "with tariff 1, fare change after 234.8 metres" in {
     val journey = new TaxiFare(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // Thursday morning
     var taxiFare = journey.currentFare

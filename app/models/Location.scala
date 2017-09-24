@@ -27,6 +27,6 @@ object Location {
   }
 }
 
-class Location (val longitude:Double, val latitude: Double) {
+class Location (val latitude:Double, val longitude: Double) {
 
 }
