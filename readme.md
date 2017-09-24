@@ -21,3 +21,20 @@ PREP
 - learn/read/watch Scala/Play material
 - build small app - https://github.com/kimptoc/pinboard-play
 
+
+DOCKER NOTES
+
+To run this via Docker:
+
+First build it.
+$ docker build -t taximeter-play .
+
+Then run it.
+$ docker run --rm --name taximeter-play -i -p 9000:9000 taximeter-play sbt run
+
+setup prod image
+$ sudo docker build -t taximeter-play-prod prod
+
+run prod image
+$ sudo docker run --rm --name taximeter-play -i -p 9000:9000 taximeter-play-prod 
+
