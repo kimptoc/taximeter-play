@@ -43,4 +43,6 @@ class Money(var value:BigDecimal) {
   }
 
   override def hashCode(): Int = value.hashCode()
+
+  override def toString: String = value.toString()
 }

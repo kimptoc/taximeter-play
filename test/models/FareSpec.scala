@@ -22,6 +22,8 @@ import scala.collection.mutable.ListBuffer
   * - 0 or more location updates (time & location)
   * - end time /location
   * - expected fare for that journey
+  *
+  * TODO turn the test cases into a table/spreadsheet - would be easier to manage
   */
 class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
@@ -32,16 +34,37 @@ class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
   }
 
   it should "with tariff 1, fare change after 234.8 metres" in {
-    val journey = new TaxiFare(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // Saturday morning
+    val journey = new TaxiFare(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // Thursday morning
     var taxiFare = journey.currentFare
     taxiFare should be (new Money(2.60)) // min fare
+
     journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0.002,0.002))
     taxiFare = journey.currentFare
     taxiFare should be (new Money(2.80)) // min fare plus one additional distance part
 
+    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // back to origin
+    taxiFare = journey.currentFare
+    taxiFare should be (new Money(3.4)) // min fare plus 4 additional distance parts
+
   }
 
-  ignore should "with tariff 1, fare change after 50.4 seconds" in {}
+  ignore should "with tariff 1, fare change after 50.4 seconds" in {
+    // TODO rejig calc to use a min time charge - this would fix this test
+    val journey = new TaxiFare(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // Thursday morning
+    var taxiFare = journey.currentFare
+    taxiFare should be (new Money(2.60)) // min fare
+
+    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:00:50.401"), new Location(0,0)) // dont move, just time
+    taxiFare = journey.currentFare
+    taxiFare should be (new Money(2.80)) // min fare plus one additional time part
+
+    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:02:00"), new Location(0,0)) // another 1 min 10 secs, 3 time slots
+    taxiFare = journey.currentFare
+    taxiFare should be (new Money(3.2)) // min fare plus 3 time charges
+
+
+  }
+
   ignore should "with tariff 1, fare rate change after 9656.1 metres when going fast" in {}
   ignore should "with tariff 1, fare rate change after 9656.1 metres when going slow" in {}
   ignore should "with tariff 1, fare for longer journey over 6 miles" in {}
