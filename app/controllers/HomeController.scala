@@ -9,25 +9,24 @@ import play.api.mvc._
 
 import scala.collection.mutable
 
-/**
- * This controller creates an `Action` to handle HTTP requests to the
- * application's home page.
- */
 @Singleton
 class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mutable.HashMap[String, TaxiFare](), cc: ControllerComponents) extends AbstractController(cc) {
 
 
   /**
-   * Create an Action to render an HTML page.
+   * Index is the main/single page of the app. Other routers are called via JavaScript
    *
-   * The configuration in the `routes` file means that this method
-   * will be called when the application receives a `GET` request with
-   * a path of `/`.
    */
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
   }
 
+  /**
+    * Called to indicate the start of a new journey
+    * @param latitude
+    * @param longitude
+    * @return
+    */
   def startJourney(latitude:Double, longitude:Double) = Action {
     val journey = new TaxiFare(LocalDateTime.now(), new models.Location(latitude, longitude))
     val fare = journey.currentFare
@@ -41,6 +40,13 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
     ))
   }
 
+  /**
+    * Called to give an update on a journey - could be same or new location, time is assumed to be now.
+    * TODO allow for late arriving update, allow time to be passed.
+    * @param latitude
+    * @param longitude
+    * @return
+    */
   def locationUpdate(latitude:Double, longitude:Double) = Action {
     val journey: Option[TaxiFare] = cache.get("journey")
     if (journey.isEmpty) {

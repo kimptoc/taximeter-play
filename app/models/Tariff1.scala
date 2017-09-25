@@ -17,6 +17,7 @@ class Tariff1(val firstDistance:Double = 234.8,
   val moneyFarCharge = new Money(farCharge)
 
   def calculateCharge(distance:Double): Money = {
+    // very raw first cut - does not implement a lot of the requirements, but help us start thinking about them.
     distance match {
       case x:Double if x <= firstDistance => moneyMinCharge
       case x:Double if x < 9656.1 => {

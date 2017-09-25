@@ -1,3 +1,7 @@
+// very basic bit of javascript to get things going.
+// subscribe to geolocation API, but does not use it for now
+// should wrap this in a closure but does not add any value so far
+
 console.log("main js loaded");
 
 if ("geolocation" in navigator) {

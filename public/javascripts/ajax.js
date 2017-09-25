@@ -1,3 +1,5 @@
+// re-used from here https://stackoverflow.com/a/18078705/48310
+
 var ajax = {};
 ajax.x = function () {
     if (typeof XMLHttpRequest !== 'undefined') {

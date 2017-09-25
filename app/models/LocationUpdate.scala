@@ -11,7 +11,7 @@ object LocationUpdate {
   }
 
   def totalTimeSpent(locationUpdates:ListBuffer[LocationUpdate]):Double = {
-    0.0
+    ???
   }
 }
 
