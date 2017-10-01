@@ -69,23 +69,29 @@ class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
   }
 
-  ignore should "with tariff 1, fare change after 50.4 seconds" in {
-    // TODO rejig calc to use a min time charge - this would fix this test
+  it should "with tariff 1, fare change after 50.4 seconds" in {
+    var fakeTime = new DateTime(2017, 9, 21, 9, 0, 0) // Thursday morning
     val clockThursdayMorning : Clock = new Clock(){
-      override def getNow = new DateTime(2017,9,21,9,0,0) // Thursday morning
+      override def getNow = {
+        fakeTime
+      }
     }
     val journey = new TaxiFare(new Location(0,0), clockThursdayMorning) // Thursday morning
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     var taxiFare = journey.currentFare
     taxiFare should be (new Money(2.60)) // min fare
 
-    journey.journeyUpdate(new Location(0,0)) // dont move, just time
+    fakeTime = new DateTime(2017, 9, 21, 9, 0, 55) // 55 seconds later
+
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     taxiFare = journey.currentFare
     taxiFare should be (new Money(2.80)) // min fare plus one additional time part
 
-    journey.journeyUpdate(new Location(0,0)) // another 1 min 10 secs, 3 time slots
+    fakeTime = new DateTime(2017, 9, 21, 9, 1, 45) // 1 min 45 seconds after start
+
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     taxiFare = journey.currentFare
     taxiFare should be (new Money(3.2)) // min fare plus 3 time charges
-
 
   }
 
