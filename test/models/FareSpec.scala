@@ -3,7 +3,9 @@ package models
 import java.time.LocalDateTime
 
 import models.util.Money
+import org.joda.time.DateTime
 import org.scalatest._
+import uk.co.epsilontechnologies.taximeter.Clock
 
 import scala.collection.mutable.ListBuffer
 
@@ -27,8 +29,17 @@ import scala.collection.mutable.ListBuffer
   */
 class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
+  // this delay is to wait for the background poller thread to do fare recalc (every 100ms)
+  // TODO probably best to expose mechanism to force fare recalc to make tests quicker
+  var meterTickDelayMs: Int = 300 // TODO wouldn't expect to need to wait this long, but we do - bug?
+
+
   "When journeys starts, fare " should "be minimum for tariff" in {
-    val journey = new TaxiFare(LocalDateTime.parse("2017-09-23T09:00:00"), new Location(0,0)) // Saturday morning
+    val clockSaturdayMorning : Clock = new Clock(){
+      override def getNow = new DateTime(2017,9,23,9,0,0) // Saturday morning
+    }
+    val journey = new TaxiFare(new Location(0,0), clockSaturdayMorning)
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     val taxiFare = journey.currentFare
     taxiFare should be (new Money(2.60)) // min fare
   }
@@ -38,15 +49,21 @@ class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
   }
 
   it should "with tariff 1, fare change after 234.8 metres" in {
-    val journey = new TaxiFare(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // Thursday morning
+    val clockThursdayMorning : Clock = new Clock(){
+      override def getNow = new DateTime(2017,9,21,9,0,0) // Thursday morning
+    }
+    val journey = new TaxiFare(new Location(0,0), clockThursdayMorning)
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     var taxiFare = journey.currentFare
     taxiFare should be (new Money(2.60)) // min fare
 
-    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0.002,0.002))
+    journey.journeyUpdate(new Location(0.002,0.002))
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     taxiFare = journey.currentFare
     taxiFare should be (new Money(2.80)) // min fare plus one additional distance part
 
-    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // back to origin
+    journey.journeyUpdate(new Location(0,0)) // back to origin
+    Thread.sleep(meterTickDelayMs) // wait for meter to tick over
     taxiFare = journey.currentFare
     taxiFare should be (new Money(3.4)) // min fare plus 4 additional distance parts
 
@@ -54,15 +71,18 @@ class FareSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
   ignore should "with tariff 1, fare change after 50.4 seconds" in {
     // TODO rejig calc to use a min time charge - this would fix this test
-    val journey = new TaxiFare(LocalDateTime.parse("2017-09-21T09:00:00"), new Location(0,0)) // Thursday morning
+    val clockThursdayMorning : Clock = new Clock(){
+      override def getNow = new DateTime(2017,9,21,9,0,0) // Thursday morning
+    }
+    val journey = new TaxiFare(new Location(0,0), clockThursdayMorning) // Thursday morning
     var taxiFare = journey.currentFare
     taxiFare should be (new Money(2.60)) // min fare
 
-    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:00:50.401"), new Location(0,0)) // dont move, just time
+    journey.journeyUpdate(new Location(0,0)) // dont move, just time
     taxiFare = journey.currentFare
     taxiFare should be (new Money(2.80)) // min fare plus one additional time part
 
-    journey.journeyUpdate(LocalDateTime.parse("2017-09-21T09:02:00"), new Location(0,0)) // another 1 min 10 secs, 3 time slots
+    journey.journeyUpdate(new Location(0,0)) // another 1 min 10 secs, 3 time slots
     taxiFare = journey.currentFare
     taxiFare should be (new Money(3.2)) // min fare plus 3 time charges
 

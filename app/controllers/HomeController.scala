@@ -28,7 +28,7 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
     * @return
     */
   def startJourney(latitude:Double, longitude:Double) = Action {
-    val journey = new TaxiFare(LocalDateTime.now(), new models.Location(latitude, longitude))
+    val journey = new TaxiFare(startLocation = new models.Location(latitude, longitude))
     val fare = journey.currentFare
     cache += ("journey" -> journey)
     Ok(Json.obj(
@@ -56,7 +56,7 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
         "status" -> "error"
       ))
     } else {
-      journey.get.journeyUpdate(LocalDateTime.now(), new models.Location(latitude, longitude))
+      journey.get.journeyUpdate(new models.Location(latitude, longitude))
       val fare = journey.get.currentFare
       Ok(Json.obj(
         "id" -> "id11!",

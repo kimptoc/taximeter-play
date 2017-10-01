@@ -18,9 +18,9 @@ class DistanceSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
   it should "calculate distance between 0,0 and .002,.002 and back" in {
     val locations = new ListBuffer[LocationUpdate]
-    locations += new LocationUpdate(new Location(0.0, 0.0), LocalDateTime.now())
-    locations += new LocationUpdate(new Location(0.002, 0.002), LocalDateTime.now())
-    locations += new LocationUpdate(new Location(0.0, 0.0), LocalDateTime.now())
+    locations += new LocationUpdate(new Location(0.0, 0.0))
+    locations += new LocationUpdate(new Location(0.002, 0.002))
+    locations += new LocationUpdate(new Location(0.0, 0.0))
     val distance = LocationUpdate.totalDistanceTravelled(locations)
     distance shouldBe > (600.0)
     distance shouldBe < (640.0)

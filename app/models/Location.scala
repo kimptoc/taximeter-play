@@ -28,5 +28,5 @@ object Location {
 }
 
 class Location (val latitude:Double, val longitude: Double) {
-
+  override def toString = s"lat:$latitude, long:$longitude"
 }

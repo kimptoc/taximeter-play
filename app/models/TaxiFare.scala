@@ -1,35 +1,44 @@
 package models
 
-import java.time.LocalDateTime
+import java.math
 
-import models.util.Money
+import models.util.{Log, Money}
+import uk.co.epsilontechnologies.taximeter.{Clock, Odometer, TflTaxiMeter2017}
 
 import scala.collection.mutable.ListBuffer
 
 /**
-  * Assumed that fare gets told when it moves.
-  * Alternatively it could track time itself, eg 5 mins after creation, it would assume fare for a 5 min journey. Not doing that for now...
-  * @param startTime
+  * Fare is calculated using an updated version of this library - https://github.com/shaneagibson/taxi-meter
+  * Forked here - https://github.com/kimptoc/taxi-meter
   * @param startLocation
   */
-class TaxiFare(startTime: LocalDateTime = LocalDateTime.now(), startLocation: Location = new Location(0,0)) {
+class TaxiFare(startLocation: Location = new Location(0,0), clock : Clock = new Clock) extends Odometer{
 
   val locationUpdates = new ListBuffer[LocationUpdate]
-  locationUpdates += new LocationUpdate(startLocation, startTime)
+  val tflTaxiMeter = new TflTaxiMeter2017(this, clock)
+  tflTaxiMeter.startJourney()
+  journeyUpdate(startLocation)
+  Log.info(s"New journey started. Locations:${locationUpdates.length}")
 
-  // TODO - probably need to break down the updates into the min chargeable time slots and build the overall fare from that.
-  // if needed could be cached, so only need to work on latest updates.
-  def currentFare = {
-    var fare : Money = new Money(2.60)
-    // TODO select tariff - which can change during journey
-    val tariff = new Tariff1()
-    // get total distance and calc fares based on that
-    val distanceTravelled = LocationUpdate.totalDistanceTravelled(locationUpdates)
-    fare = tariff.calculateCharge(distanceTravelled)
-    // TODO get total time, and calc fares based on that
-    // TODO use higher total...
-    fare
+  def currentFare : Money = {
+    val fare = tflTaxiMeter.getFare
+    Log.info(s"currentFare called:$fare")
+    new Money(fare)
   }
 
-  def journeyUpdate(time: LocalDateTime, location: Location) = locationUpdates += new LocationUpdate(location, time)
+  def journeyUpdate(location: Location): Unit = {
+    Log.info(s"Got a location update:$location")
+    locationUpdates += new LocationUpdate(location)
+  }
+
+  override def getDistance : math.BigDecimal = {
+    val distance = LocationUpdate.totalDistanceTravelled(locationUpdates)
+    Log.info(s"Current distance:$distance")
+    math.BigDecimal.valueOf(distance)
+  }
+
+  override def reset() : Unit = {
+    Log.info("Reset called!")
+    locationUpdates.clear()
+  }
 }

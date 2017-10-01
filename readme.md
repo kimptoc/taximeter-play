@@ -5,14 +5,17 @@ DONE
 - TravisCI linked, but fails for some reason - seems to be config related
 - Docker-ised the app.
 - made a start on some supporting model objects, eg Money, Tariff1, Location, LocationUpdate and TaxiFare
+- tests/implement taxi fare calc, done using this forked library https://github.com/kimptoc/taxi-meter
 
 TODO 
 
-- tests/implement taxi fare calc
+- PhoneGap/Cordova based app - as this is just more javascript, plan to leave this or now.
+- UI in Javascipt using browser GPS to track location
+
+LATER
+
 - tests for webservice to take in time/location updates and provide current fare
 -- some kind of session indicator so that can track multiple journeys (v2)
-- UI in Javascipt using browser GPS to track location
-- PhoneGap/Cordova based app - as this is just more javascript, plan to leave this or now.
 - CI/CD
 -- CI/travis unit test builds
 -- CD/auto-deploy all checkins to running server
