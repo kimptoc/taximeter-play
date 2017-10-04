@@ -15,3 +15,10 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2
 
 // Adds additional packages into conf/routes
 // play.sbt.routes.RoutesKeys.routesImport += "net.kimptoc.binders._"
+
+// taxi-meter dependancies
+libraryDependencies ++= Seq(
+  "commons-io" % "commons-io" % "1.3.2",
+  "org.apache.commons" % "commons-lang3" % "3.1",
+  "joda-time" % "joda-time" % "2.0"
+)

@@ -33,7 +33,7 @@ class TaxiFare(startLocation: Location = new Location(0,0), clock : Clock = new 
 
   override def getDistance : math.BigDecimal = {
     val distance = LocationUpdate.totalDistanceTravelled(locationUpdates)
-    Log.info(s"Current distance:$distance")
+    // Log.info(s"Current distance:$distance")
     math.BigDecimal.valueOf(distance)
   }
 
