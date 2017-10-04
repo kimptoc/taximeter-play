@@ -26,6 +26,10 @@ class TaxiFare(startLocation: Location = new Location(0,0), clock : Clock = new 
     new Money(fare)
   }
 
+  def elapsed : BigDecimal = tflTaxiMeter.getDuration
+
+  def distance : BigDecimal = tflTaxiMeter.getDistance
+
   def journeyUpdate(location: Location): Unit = {
     Log.info(s"Got a location update:$location")
     locationUpdates += new LocationUpdate(location)
@@ -35,6 +39,11 @@ class TaxiFare(startLocation: Location = new Location(0,0), clock : Clock = new 
     val distance = LocationUpdate.totalDistanceTravelled(locationUpdates)
     // Log.info(s"Current distance:$distance")
     math.BigDecimal.valueOf(distance)
+  }
+
+  def stop : Money = {
+    tflTaxiMeter.endJourney()
+    currentFare
   }
 
   override def reset() : Unit = {

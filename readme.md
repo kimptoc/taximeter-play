@@ -22,8 +22,8 @@ LATER
 
 UI
 - 2 modes
-  - pure GPS - start journey, live fare updates, stop journey
-  - manual - start, update with random move, show current fare, stop journey
+  - pure GPS - start journey, live fare updates, stop journey, location/time/fare updating over time
+  - manual - start, update with random move/buttons for London locations, show time/fare live updating over time, stop journey
 
 
 
@@ -33,6 +33,13 @@ PREP
 - learn/read/watch Scala/Play material
 - build small app - https://github.com/kimptoc/pinboard-play
 
+
+SCALA JS NOTES
+- want to have ScalaJS code for Phonegap - so compile it to dedicated js file
+- want to have browser ScalaJS code in Play - so compile to another dedicated js file
+- want to have shared ScalaJS code - build into shared.js file, and also build for JVM
+- and also the server side Scala code, on the JVM
+ 
 
 
 

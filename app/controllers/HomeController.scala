@@ -1,9 +1,9 @@
 package controllers
 
-import java.time.LocalDateTime
 import javax.inject._
 
 import models.TaxiFare
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 import play.api.mvc._
 
@@ -36,6 +36,9 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
       "latitude" -> latitude,
       "longitude" -> longitude,
       "fare" -> fare.value, // TODO remove ".value" - how to make own objects work in JSON
+      "timestamp" -> DateTime.now().toString(),
+      "elapsed" -> journey.elapsed,
+      "distance" -> journey.distance,
       "status" -> "ok"
     ))
   }
@@ -48,21 +51,47 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
     * @return
     */
   def locationUpdate(latitude:Double, longitude:Double) = Action {
-    val journey: Option[TaxiFare] = cache.get("journey")
-    if (journey.isEmpty) {
+    val journeyMaybe: Option[TaxiFare] = cache.get("journey")
+    if (journeyMaybe.isEmpty) {
       Ok(Json.obj(
         "id" -> "id11!",
         "error" -> "journey not found",
         "status" -> "error"
       ))
     } else {
-      journey.get.journeyUpdate(new models.Location(latitude, longitude))
-      val fare = journey.get.currentFare
+      val journey = journeyMaybe.get
+      journey.journeyUpdate(new models.Location(latitude, longitude))
+      val fare = journey.currentFare
       Ok(Json.obj(
         "id" -> "id11!",
         "latitude" -> latitude,
         "longitude" -> longitude,
         "fare" -> fare.value, // TODO remove ".value" - how to make own objects work in JSON
+        "timestamp" -> DateTime.now().toString(),
+        "elapsed" -> journey.elapsed,
+        "distance" -> journey.distance,
+        "status" -> "ok"
+      ))
+    }
+  }
+
+  def endJourney() = Action {
+    val journeyMaybe: Option[TaxiFare] = cache.get("journey")
+    if (journeyMaybe.isEmpty) {
+      Ok(Json.obj(
+        "id" -> "id11!",
+        "error" -> "journey not found",
+        "status" -> "error"
+      ))
+    } else {
+      val journey = journeyMaybe.get
+      val fare = journey.stop
+      Ok(Json.obj(
+        "id" -> "id11!",
+        "fare" -> fare.value, // TODO remove ".value" - how to make own objects work in JSON
+        "timestamp" -> DateTime.now().toString(),
+        "elapsed" -> journey.elapsed,
+        "distance" -> journey.distance,
         "status" -> "ok"
       ))
     }

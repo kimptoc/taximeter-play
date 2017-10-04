@@ -18,6 +18,7 @@ if ("geolocation" in navigator) {
 
 document.getElementById("start1").addEventListener("click", startNewJourney);
 document.getElementById("move1").addEventListener("click", updateLocation);
+document.getElementById("end1").addEventListener("click", endJourney);
 
 function handleLocation(latitude, longitude)
 {
@@ -30,6 +31,17 @@ function startNewJourney()
     latitude = document.getElementById("latitude").value;
     longitude = document.getElementById("longitude").value;
     ajax.get('start_journey/'+latitude+'/'+longitude, {}, function(result) {
+        result = JSON.parse(result);
+        console.log("callback?", result);
+        document.getElementById("fare").value = result.fare;
+    });
+
+}
+
+function endJourney()
+{
+    console.log("end journey");
+    ajax.get('end_journey', {}, function(result) {
         result = JSON.parse(result);
         console.log("callback?", result);
         document.getElementById("fare").value = result.fare;
