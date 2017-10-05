@@ -9,6 +9,8 @@ import play.api.mvc._
 
 import scala.collection.mutable
 
+import shared.SharedMessages
+
 @Singleton
 class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mutable.HashMap[String, TaxiFare](), cc: ControllerComponents) extends AbstractController(cc) {
 
@@ -18,7 +20,7 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
    *
    */
   def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
+    Ok(views.html.index(SharedMessages.itWorks))
   }
 
   /**
