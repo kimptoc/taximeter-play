@@ -2,6 +2,6 @@ FROM taximeter-play
 
 RUN sbt clean stage
 
-ENV PATH $PROJECT_HOME/target/universal/stage/bin:$PATH
+ENV PATH $PROJECT_HOME/app/server/target/universal/stage/bin:$PATH
 
-ENTRYPOINT target/universal/stage/bin/taximeter-play -Dplay.crypto.secret=0123456789
+ENTRYPOINT server -Dplay.http.secret.key=0123456789
