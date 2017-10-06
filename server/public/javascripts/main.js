@@ -30,7 +30,7 @@ function startNewJourney()
     console.log("start new journey");
     latitude = document.getElementById("latitude").value;
     longitude = document.getElementById("longitude").value;
-    ajax.get('start_journey/'+latitude+'/'+longitude, {}, function(result) {
+    ajax.post('start_journey/'+latitude+'/'+longitude, {}, function(result) {
         result = JSON.parse(result);
         console.log("callback?", result);
         document.getElementById("fare").value = result.fare;
@@ -41,7 +41,7 @@ function startNewJourney()
 function endJourney()
 {
     console.log("end journey");
-    ajax.get('end_journey', {}, function(result) {
+    ajax.post('end_journey', {}, function(result) {
         result = JSON.parse(result);
         console.log("callback?", result);
         document.getElementById("fare").value = result.fare;
@@ -54,7 +54,7 @@ function updateLocation()
     console.log("updating location")
     latitude = document.getElementById("latitude").value;
     longitude = document.getElementById("longitude").value;
-    ajax.get('location_update/'+latitude+'/'+longitude, {}, function(result) {
+    ajax.post('location_update/'+latitude+'/'+longitude, {}, function(result) {
         result = JSON.parse(result);
         console.log("callback?", result);
         document.getElementById("fare").value = result.fare;

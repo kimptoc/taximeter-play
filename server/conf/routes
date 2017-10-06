@@ -5,9 +5,14 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
-GET     /location_update/:latitude/:longitude            controllers.HomeController.locationUpdate(latitude:Double, longitude:Double)
-GET     /start_journey/:latitude/:longitude              controllers.HomeController.startJourney(latitude:Double, longitude:Double)
-GET     /end_journey                                     controllers.HomeController.endJourney()
+
+# disable CSRF - not the right way to do it, but makes things work for now.
++ nocsrf
+POST     /location_update/:latitude/:longitude            controllers.HomeController.locationUpdate(latitude:Double, longitude:Double)
++ nocsrf
+POST     /start_journey/:latitude/:longitude              controllers.HomeController.startJourney(latitude:Double, longitude:Double)
++ nocsrf
+POST     /end_journey                                     controllers.HomeController.endJourney()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
