@@ -77,7 +77,7 @@ class HomeController @Inject()(cache: mutable.HashMap[String, TaxiFare] = new mu
     }
   }
 
-  def endJourney() = Action {
+  def endJourney(latitude:Double, longitude:Double) = Action {
     val journeyMaybe: Option[TaxiFare] = cache.get("journey")
     if (journeyMaybe.isEmpty) {
       Ok(Json.obj(
