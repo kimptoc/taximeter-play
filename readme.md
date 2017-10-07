@@ -61,4 +61,6 @@ $ sudo docker run --rm --name taximeter-play -i -p 9000:9000 taximeter-play-prod
 
 KNOWN GLITCHES
 - elapsed still ticks over after journey marked as ended
-- 
+- switched from GET to POST for endpoints, but causes some problems
+- CSRF - restricts access to POST requests disabled this, need to review if ok. Perhaps in a secured setup, eg OAuth
+- CORS - cordova client worked with previous setup, but failing - maybe due to switch from GET to POST. But ok with server based setup :()

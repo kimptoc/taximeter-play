@@ -15,10 +15,6 @@ import org.w3c.dom.html.HTMLButtonElement
 
 object ScalaJSMain {
   def main(args: Array[String]): Unit = {
-//    dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
-//    dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
-//    dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
-//    dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
 
     val main = dom.document.getElementById("main-app")
 
@@ -62,7 +58,9 @@ object ScalaJSMain {
 
     val latitude = inputValue("latitude")
     val longitude = inputValue("longitude")
-    val url = s"$action/$latitude/$longitude"
+    val backend_url = dom.document.getElementById("backend_url").textContent
+    println(s"backend_url:$backend_url")
+    val url = s"$backend_url/$action/$latitude/$longitude"
     Ajax.post(url).onComplete { case xhr =>
       println("ajax call complete")
       println(xhr.get.responseText)
