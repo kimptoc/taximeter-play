@@ -16,47 +16,8 @@ if ("geolocation" in navigator) {
     console.log("GeoLocation is not available - use the buttons to fake it")
 }
 
-document.getElementById("start1").addEventListener("click", startNewJourney);
-document.getElementById("move1").addEventListener("click", updateLocation);
-document.getElementById("end1").addEventListener("click", endJourney);
-
 function handleLocation(latitude, longitude)
 {
     console.log("Got location:"+latitude+","+longitude);
 }
 
-function startNewJourney()
-{
-    console.log("start new journey");
-    latitude = document.getElementById("latitude").value;
-    longitude = document.getElementById("longitude").value;
-    ajax.post('start_journey/'+latitude+'/'+longitude, {}, function(result) {
-        result = JSON.parse(result);
-        console.log("callback?", result);
-        document.getElementById("fare").value = result.fare;
-    });
-
-}
-
-function endJourney()
-{
-    console.log("end journey");
-    ajax.post('end_journey', {}, function(result) {
-        result = JSON.parse(result);
-        console.log("callback?", result);
-        document.getElementById("fare").value = result.fare;
-    });
-
-}
-
-function updateLocation()
-{
-    console.log("updating location")
-    latitude = document.getElementById("latitude").value;
-    longitude = document.getElementById("longitude").value;
-    ajax.post('location_update/'+latitude+'/'+longitude, {}, function(result) {
-        result = JSON.parse(result);
-        console.log("callback?", result);
-        document.getElementById("fare").value = result.fare;
-    });
-}

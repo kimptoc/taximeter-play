@@ -59,3 +59,6 @@ $ sudo docker build -t taximeter-play-prod prod
 run prod image
 $ sudo docker run --rm --name taximeter-play -i -p 9000:9000 taximeter-play-prod 
 
+KNOWN GLITCHES
+- elapsed still ticks over after journey marked as ended
+- 
