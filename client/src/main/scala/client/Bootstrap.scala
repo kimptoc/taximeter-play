@@ -1,9 +1,13 @@
 package client
 
+import DomUtils._
+
 object Bootstrap {
 
   def main(args: Array[String]): Unit = {
     println("Bootstrap!")
-    ScalaJSMain.start()
+    if (text("on_load") == "start") {
+      ScalaJSMain.start()
+    }
   }
 }

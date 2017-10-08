@@ -10,7 +10,7 @@ RUN    npm install -g phonegap@latest && \
 RUN    cd /tmp && \
     phonegap create fakeapp && \
     cd /tmp/fakeapp && \
-    phonegap build android
+    phonegap build browser
 
 RUN    cd && \
     rm -rf /tmp/fakeapp

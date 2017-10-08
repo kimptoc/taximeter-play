@@ -1350,6 +1350,85 @@ function $f_sci_VectorPointer__initFrom__sci_VectorPointer__I__V($thiz, that, de
   }
 }
 /** @constructor */
+function $c_Lclient_Bootstrap$() {
+  $c_O.call(this)
+}
+$c_Lclient_Bootstrap$.prototype = new $h_O();
+$c_Lclient_Bootstrap$.prototype.constructor = $c_Lclient_Bootstrap$;
+/** @constructor */
+function $h_Lclient_Bootstrap$() {
+  /*<skip>*/
+}
+$h_Lclient_Bootstrap$.prototype = $c_Lclient_Bootstrap$.prototype;
+$c_Lclient_Bootstrap$.prototype.init___ = (function() {
+  return this
+});
+$c_Lclient_Bootstrap$.prototype.main__AT__V = (function(args) {
+  var this$2 = $m_s_Console$();
+  var this$3 = $as_Ljava_io_PrintStream(this$2.outVar$2.v$1);
+  this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V("Bootstrap!\n");
+  if (($m_Lclient_DomUtils$().text__T__T("on_load") === "start")) {
+    $m_Lclient_ScalaJSMain$().start__V()
+  }
+});
+var $d_Lclient_Bootstrap$ = new $TypeData().initClass({
+  Lclient_Bootstrap$: 0
+}, false, "client.Bootstrap$", {
+  Lclient_Bootstrap$: 1,
+  O: 1
+});
+$c_Lclient_Bootstrap$.prototype.$classData = $d_Lclient_Bootstrap$;
+var $n_Lclient_Bootstrap$ = (void 0);
+function $m_Lclient_Bootstrap$() {
+  if ((!$n_Lclient_Bootstrap$)) {
+    $n_Lclient_Bootstrap$ = new $c_Lclient_Bootstrap$().init___()
+  };
+  return $n_Lclient_Bootstrap$
+}
+/** @constructor */
+function $c_Lclient_DomUtils$() {
+  $c_O.call(this)
+}
+$c_Lclient_DomUtils$.prototype = new $h_O();
+$c_Lclient_DomUtils$.prototype.constructor = $c_Lclient_DomUtils$;
+/** @constructor */
+function $h_Lclient_DomUtils$() {
+  /*<skip>*/
+}
+$h_Lclient_DomUtils$.prototype = $c_Lclient_DomUtils$.prototype;
+$c_Lclient_DomUtils$.prototype.element__T__Lorg_scalajs_dom_raw_Element = (function(tag) {
+  return $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement(tag)
+});
+$c_Lclient_DomUtils$.prototype.init___ = (function() {
+  return this
+});
+$c_Lclient_DomUtils$.prototype.text__T__T = (function(id) {
+  return $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).textContent)
+});
+$c_Lclient_DomUtils$.prototype.inputValue__T__T = (function(id) {
+  return $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).value)
+});
+$c_Lclient_DomUtils$.prototype.setInputValue__T__D__V = (function(id, value) {
+  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).value = ("" + value)
+});
+$c_Lclient_DomUtils$.prototype.setText__T__O__V = (function(id, value) {
+  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).textContent = $objectToString(value)
+});
+var $d_Lclient_DomUtils$ = new $TypeData().initClass({
+  Lclient_DomUtils$: 0
+}, false, "client.DomUtils$", {
+  Lclient_DomUtils$: 1,
+  O: 1
+});
+$c_Lclient_DomUtils$.prototype.$classData = $d_Lclient_DomUtils$;
+var $n_Lclient_DomUtils$ = (void 0);
+function $m_Lclient_DomUtils$() {
+  if ((!$n_Lclient_DomUtils$)) {
+    $n_Lclient_DomUtils$ = new $c_Lclient_DomUtils$().init___()
+  };
+  return $n_Lclient_DomUtils$
+}
+/** @constructor */
 function $c_Lclient_ScalaJSMain$() {
   $c_O.call(this);
   this.journeyUnderway$1 = false
@@ -1366,7 +1445,7 @@ $c_Lclient_ScalaJSMain$.prototype.init___ = (function() {
   return this
 });
 $c_Lclient_ScalaJSMain$.prototype.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O = (function(main, title, action, enableGPS, body) {
-  var startButton = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("button");
+  var startButton = $m_Lclient_DomUtils$().element__T__Lorg_scalajs_dom_raw_Element("button");
   startButton.textContent = title;
   startButton.addEventListener("click", (function(action$1, enableGPS$1, body$1) {
     return (function(arg1$2) {
@@ -1374,6 +1453,51 @@ $c_Lclient_ScalaJSMain$.prototype.addButton__p1__Lorg_scalajs_dom_raw_Element__T
     })
   })(action, enableGPS, body), false);
   return main.appendChild(startButton)
+});
+$c_Lclient_ScalaJSMain$.prototype.start__V = (function() {
+  var main = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById("main-app");
+  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Start Journey (auto via GPS)", new $c_s_Some().init___O("start_journey"), true, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function($this) {
+    return (function() {
+      $this.journeyUnderway$1 = true
+    })
+  })(this)));
+  main.appendChild($m_Lclient_DomUtils$().element__T__Lorg_scalajs_dom_raw_Element("br"));
+  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Start Journey (manual)", new $c_s_Some().init___O("start_journey"), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$2) {
+    return (function() {
+      this$2.journeyUnderway$1 = true
+    })
+  })(this)));
+  main.appendChild($m_Lclient_DomUtils$().element__T__Lorg_scalajs_dom_raw_Element("p"));
+  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Go to Oxford Circus", $m_s_None$(), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$3) {
+    return (function() {
+      $m_Lclient_DomUtils$().setInputValue__T__D__V("latitude", 51.515419);
+      $m_Lclient_DomUtils$().setInputValue__T__D__V("longitude", (-0.141099))
+    })
+  })(this)));
+  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Go to Greenwich Park", $m_s_None$(), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$4) {
+    return (function() {
+      $m_Lclient_DomUtils$().setInputValue__T__D__V("latitude", 51.47669);
+      $m_Lclient_DomUtils$().setInputValue__T__D__V("longitude", 1.3E-4)
+    })
+  })(this)));
+  main.appendChild($m_Lclient_DomUtils$().element__T__Lorg_scalajs_dom_raw_Element("p"));
+  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "End Journey", new $c_s_Some().init___O("end_journey"), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$5) {
+    return (function() {
+      this$5.journeyUnderway$1 = false
+    })
+  })(this)));
+  main.appendChild($m_Lclient_DomUtils$().element__T__Lorg_scalajs_dom_raw_Element("br"));
+  $m_sjs_js_timers_package$().setInterval__D__F0__sjs_js_timers_SetIntervalHandle(100.0, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$6) {
+    return (function() {
+      var x = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["backgrounder, journey underway? ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([this$6.journeyUnderway$1]));
+      var this$7 = $m_s_Console$();
+      var this$8 = $as_Ljava_io_PrintStream(this$7.outVar$2.v$1);
+      this$8.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"));
+      if (this$6.journeyUnderway$1) {
+        this$6.sendUpdate__p1__T__V("location_update")
+      }
+    })
+  })(this)))
 });
 $c_Lclient_ScalaJSMain$.prototype.client$ScalaJSMain$$$anonfun$addButton$1__Lorg_scalajs_dom_raw_Event__s_Option__Z__F0__O = (function(e0, action$1, enableGPS$1, body$1) {
   body$1.apply__O();
@@ -1397,67 +1521,13 @@ $c_Lclient_ScalaJSMain$.prototype.client$ScalaJSMain$$$anonfun$addButton$1__Lorg
   return (action$1.isDefined__Z() ? (this.sendUpdate__p1__T__V($as_T(action$1.get__O())), (void 0)) : (void 0))
 });
 $c_Lclient_ScalaJSMain$.prototype.onSuccess$1__p1__Lorg_scalajs_dom_raw_Position__V = (function(p) {
-  this.setInputValue__p1__T__D__V("latitude", $uD(p.coords.latitude));
-  this.setInputValue__p1__T__D__V("longitude", $uD(p.coords.longitude))
-});
-$c_Lclient_ScalaJSMain$.prototype.setText__p1__T__O__V = (function(id, value) {
-  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).textContent = $objectToString(value)
-});
-$c_Lclient_ScalaJSMain$.prototype.main__AT__V = (function(args) {
-  var main = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById("main-app");
-  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Start Journey (auto via GPS)", new $c_s_Some().init___O("start_journey"), true, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function($this) {
-    return (function() {
-      $this.journeyUnderway$1 = true
-    })
-  })(this)));
-  main.appendChild($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("br"));
-  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Start Journey (manual)", new $c_s_Some().init___O("start_journey"), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$2) {
-    return (function() {
-      this$2.journeyUnderway$1 = true
-    })
-  })(this)));
-  main.appendChild($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("p"));
-  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Go to Oxford Circus", $m_s_None$(), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$3) {
-    return (function() {
-      this$3.setInputValue__p1__T__D__V("latitude", 51.515419);
-      this$3.setInputValue__p1__T__D__V("longitude", (-0.141099))
-    })
-  })(this)));
-  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "Go to Greenwich Park", $m_s_None$(), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$4) {
-    return (function() {
-      this$4.setInputValue__p1__T__D__V("latitude", 51.47669);
-      this$4.setInputValue__p1__T__D__V("longitude", 1.3E-4)
-    })
-  })(this)));
-  main.appendChild($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("p"));
-  this.addButton__p1__Lorg_scalajs_dom_raw_Element__T__s_Option__Z__F0__O(main, "End Journey", new $c_s_Some().init___O("end_journey"), false, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$5) {
-    return (function() {
-      this$5.journeyUnderway$1 = false
-    })
-  })(this)));
-  main.appendChild($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("br"));
-  $m_sjs_js_timers_package$().setInterval__D__F0__sjs_js_timers_SetIntervalHandle(100.0, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$6) {
-    return (function() {
-      var x = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["backgrounder, journey underway? ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([this$6.journeyUnderway$1]));
-      var this$7 = $m_s_Console$();
-      var this$8 = $as_Ljava_io_PrintStream(this$7.outVar$2.v$1);
-      this$8.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"));
-      if (this$6.journeyUnderway$1) {
-        this$6.sendUpdate__p1__T__V("location_update")
-      }
-    })
-  })(this)))
-});
-$c_Lclient_ScalaJSMain$.prototype.inputValue__p1__T__T = (function(id) {
-  return $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).value)
-});
-$c_Lclient_ScalaJSMain$.prototype.setInputValue__p1__T__D__V = (function(id, value) {
-  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).value = ("" + value)
+  $m_Lclient_DomUtils$().setInputValue__T__D__V("latitude", $uD(p.coords.latitude));
+  $m_Lclient_DomUtils$().setInputValue__T__D__V("longitude", $uD(p.coords.longitude))
 });
 $c_Lclient_ScalaJSMain$.prototype.sendUpdate__p1__T__V = (function(action) {
-  var latitude = this.inputValue__p1__T__T("latitude");
-  var longitude = this.inputValue__p1__T__T("longitude");
-  var backend_url = $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById("backend_url").textContent);
+  var latitude = $m_Lclient_DomUtils$().inputValue__T__T("latitude");
+  var longitude = $m_Lclient_DomUtils$().inputValue__T__T("longitude");
+  var backend_url = $m_Lclient_DomUtils$().text__T__T("backend_url");
   var x = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["backend_url:", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([backend_url]));
   var this$2 = $m_s_Console$();
   var this$3 = $as_Ljava_io_PrintStream(this$2.outVar$2.v$1);
@@ -1466,16 +1536,16 @@ $c_Lclient_ScalaJSMain$.prototype.sendUpdate__p1__T__V = (function(action) {
   var this$6 = $m_Lorg_scalajs_dom_ext_Ajax$();
   var headers = $m_sci_Map$EmptyMap$();
   this$6.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("POST", url, null, 0, headers, false, "").onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function($this) {
-    return (function(x0$1$2) {
-      var x0$1 = $as_s_util_Try(x0$1$2);
+    return (function(xhr$2) {
+      var xhr = $as_s_util_Try(xhr$2);
       var this$8 = $m_s_Console$();
       var this$9 = $as_Ljava_io_PrintStream(this$8.outVar$2.v$1);
       this$9.java$lang$JSConsoleBasedPrintStream$$printString__T__V("ajax call complete\n");
-      var r = $g.JSON.parse($as_T(x0$1.get__O().responseText));
-      $this.setText__p1__T__O__V("fare", r.fare);
-      $this.setText__p1__T__O__V("elapsed", r.elapsed);
-      $this.setText__p1__T__O__V("distance", r.distance);
-      $this.setText__p1__T__O__V("timestamp", r.timestamp)
+      var r = $g.JSON.parse($as_T(xhr.get__O().responseText));
+      $m_Lclient_DomUtils$().setText__T__O__V("fare", r.fare);
+      $m_Lclient_DomUtils$().setText__T__O__V("elapsed", r.elapsed);
+      $m_Lclient_DomUtils$().setText__T__O__V("distance", r.distance);
+      $m_Lclient_DomUtils$().setText__T__O__V("timestamp", r.timestamp)
     })
   })(this)), $m_s_concurrent_ExecutionContext$Implicits$().global__s_concurrent_ExecutionContext())
 });
@@ -9903,6 +9973,11 @@ var $d_sjs_js_WrappedArray = new $TypeData().initClass({
   scm_Builder: 1
 });
 $c_sjs_js_WrappedArray.prototype.$classData = $d_sjs_js_WrappedArray;
-$m_Lclient_ScalaJSMain$().main__AT__V($makeNativeArrayWrapper($d_T.getArrayOf(), []));
+$e.client = ($e.client || {});
+$e.client.ScalaJSMain = ($e.client.ScalaJSMain || {});
+$e.client.ScalaJSMain.start = (function() {
+  $m_Lclient_ScalaJSMain$().start__V()
+});
+$m_Lclient_Bootstrap$().main__AT__V($makeNativeArrayWrapper($d_T.getArrayOf(), []));
 }).call(this);
 //# sourceMappingURL=client-fastopt.js.map
