@@ -6,6 +6,7 @@ import org.scalajs.dom.raw.Element
 import org.scalajs.dom.{Event, Position, PositionError}
 
 import scala.scalajs.js.JSON
+import scala.scalajs.js.annotation.JSExportTopLevel
 //import shared.SharedMessages
 
 import org.scalajs.dom.ext.Ajax
@@ -15,7 +16,8 @@ object ScalaJSMain {
 
   var journeyUnderway:Boolean = false
 
-  def main(args: Array[String]): Unit = {
+  @JSExportTopLevel("client.ScalaJSMain.start") // can be used in JS as client.ScalaJSMain.start()
+  def start(): Unit = {
 
     val main = dom.document.getElementById("main-app")
 
