@@ -34,7 +34,7 @@ object ScalaJSMain {
     main.appendChild(element("br"))
 
 
-    setInterval(100) {
+    setInterval(300) {
       println(s"backgrounder, journey underway? $journeyUnderway")
       if (journeyUnderway) {
         sendUpdate("location_update")

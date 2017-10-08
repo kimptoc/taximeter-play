@@ -32,9 +32,12 @@
 
     </div>
 
-    <!-- <span id="backend_url" class="hideme">http://192.168.2.201:9000</span> -->
-    <!-- <span id="backend_url" class="hideme">https://taximeter.kimptoc.net</span> -->
-        <div class="hideme">backend: <span id="backend_url">http://taximeter.dev:9000</span></div>
+        <div class="hideme">backend:
+            <span id="backend_url">http://taximeter.dev:9000</span>
+                <!-- <span id="backend_url" class="hideme">http://192.168.2.201:9000</span> -->
+            <!-- this does not work due to "violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. -->
+                <!-- <span id="backend_url" class="hideme">https://taximeter.kimptoc.net</span> -->
+        </div>
         <span id="on_load">start</span><!-- should be hidden, but leave visible for now -->
     @scalajs.html.scripts("client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
 

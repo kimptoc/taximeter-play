@@ -1396,11 +1396,11 @@ function $h_Lclient_DomUtils$() {
   /*<skip>*/
 }
 $h_Lclient_DomUtils$.prototype = $c_Lclient_DomUtils$.prototype;
-$c_Lclient_DomUtils$.prototype.element__T__Lorg_scalajs_dom_raw_Element = (function(tag) {
-  return $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement(tag)
-});
 $c_Lclient_DomUtils$.prototype.init___ = (function() {
   return this
+});
+$c_Lclient_DomUtils$.prototype.element__T__Lorg_scalajs_dom_raw_Element = (function(tag) {
+  return $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement(tag)
 });
 $c_Lclient_DomUtils$.prototype.text__T__T = (function(id) {
   return $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById(id).textContent)
@@ -1487,7 +1487,7 @@ $c_Lclient_ScalaJSMain$.prototype.start__V = (function() {
     })
   })(this)));
   main.appendChild($m_Lclient_DomUtils$().element__T__Lorg_scalajs_dom_raw_Element("br"));
-  $m_sjs_js_timers_package$().setInterval__D__F0__sjs_js_timers_SetIntervalHandle(100.0, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$6) {
+  $m_sjs_js_timers_package$().setInterval__D__F0__sjs_js_timers_SetIntervalHandle(300.0, new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function(this$6) {
     return (function() {
       var x = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["backgrounder, journey underway? ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([this$6.journeyUnderway$1]));
       var this$7 = $m_s_Console$();
