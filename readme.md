@@ -1,3 +1,12 @@
+Currently (?) running on https://taximeter.kimptoc.net/ (server and play browser version).
+Can point the cordova version at this backend.
+
+HOW TO RUN
+- all locally, run the play app and the ./cordova apps.  Have to amend main.scala.html and cordova/www/index.html to refer to localhost:9000
+- can run play app via docker on a server. See docker_build.sh and Dockerfile and prod/Dockerfile. Above links should be changed to refer to your server url
+- then run the cordova app locally, changing cordova/www/index.html to point to your server.
+- cannot run cordova app on server, as cli does not support it.  Should be a proper published app.
+
 DONE
 - TDD/implemented first/basic cut of taxi fare calc - learnt some of the quirks of it
 - webservice to take in time/location updates and provide current fare
@@ -5,17 +14,18 @@ DONE
 - TravisCI linked, but fails for some reason - seems to be config related
 - Docker-ised the app.
 - made a start on some supporting model objects, eg Money, Tariff1, Location, LocationUpdate and TaxiFare
-- tests/implement taxi fare calc, done using this forked library https://github.com/kimptoc/taxi-meter
+- tests/implement taxi fare calc, done using this forked library https://github.com/kimptoc/taxi-meter - assumed acceptable, given other 3rd party libs that are needed.
+- PhoneGap/Cordova based app - done, via ScalaJS
+- UI in Javascipt using browser GPS to track location, also a "manual option"
 
 TODO 
-
-- PhoneGap/Cordova based app - as this is just more javascript, plan to leave this or now.
-- UI in Javascipt using browser GPS to track location
+- none :) 
 
 LATER
 
-- tests for webservice to take in time/location updates and provide current fare
+- tests for webservice to take in time/location updates and provide current fare, not done as its a thin layer on the model.
 -- some kind of session indicator so that can track multiple journeys (v2)
+- tests for client - currently not that involved, but might need it later.
 - CI/CD
 -- CI/travis unit test builds
 -- CD/auto-deploy all checkins to running server
@@ -39,7 +49,7 @@ SCALA JS NOTES
 - want to have browser ScalaJS code in Play - so compile to another dedicated js file
 - want to have shared ScalaJS code - build into shared.js file, and also build for JVM
 - and also the server side Scala code, on the JVM
- 
+- the Play compile ScalaJS is manually copied in the Cordova area - ./cordova/www/js/client-fastopt.js 
 
 
 

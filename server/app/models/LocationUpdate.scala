@@ -1,9 +1,5 @@
 package models
 
-import java.time.LocalDateTime
-
-import models.util.Log
-
 import scala.collection.mutable.ListBuffer
 
 object LocationUpdate {
